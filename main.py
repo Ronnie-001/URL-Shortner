@@ -14,5 +14,3 @@ async def shortenURL():
 @app.get("/api/v1/urls/{url_id}")
 async def getURL():
     print()
-
-
