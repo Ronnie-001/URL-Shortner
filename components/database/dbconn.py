@@ -2,7 +2,7 @@
 
 # import the ORM 
 from sqlalchemy.orm import declarative_base
-from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 # get environment variables
 from dotenv import load_dotenv
@@ -24,4 +24,5 @@ if DATABASE_URL is None:
     )
 
 engine = create_async_engine(DATABASE_URL, echo=True)
+Session = async_sessionmaker(engine, expire_on_commit=False)
 Base = declarative_base()
