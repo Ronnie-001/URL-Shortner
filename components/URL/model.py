@@ -1,15 +1,10 @@
-from sqlalchemy import Column, Date, Integer, String, true 
-from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import Mapped
-
+from sqlalchemy import Column, Date, Integer, String 
 from components.database.dbconn import Base 
-
-from datetime import datetime
 
 class URL(Base):
     __tablename__ = "urls"
     
-    uid = Column(Integer, primary_key=True, autoincrement=True)
+    uid = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     short_url = Column(String(100))
     long_url = Column(String(100))
     created_at = Column(Date)

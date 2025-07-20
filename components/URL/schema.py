@@ -8,7 +8,7 @@ class URLCreate(BaseModel):
 class URLRead(BaseModel):
     uid: int
     short_url: str
-    long_url: HttpUrl
+    long_url: str
     cretaed_at: datetime
     use_count: int
 

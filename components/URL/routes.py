@@ -34,8 +34,8 @@ async def shortenURL(url: URLCreate, db: AsyncSession = Depends(getDb)):
     global global_counter
 
     new_url = model.URL(
-        short_url=generateShortUrl(),
-        long_url=url.long_url,
+        short_url= await generateShortUrl(),
+        long_url= str(url.long_url),
         created_at=datetime.datetime.now(),
         use_count = 0
     )
@@ -53,6 +53,5 @@ async def shortenURL(url: URLCreate, db: AsyncSession = Depends(getDb)):
 async def getURL(url_id : int, db: AsyncSession = Depends(getDb)):
     res = await db.execute(select(model.URL).where(model.URL.uid == url_id))
     user = res.scalar_one_or_none()
-
 
     return user
