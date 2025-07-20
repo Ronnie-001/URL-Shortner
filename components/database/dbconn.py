@@ -1,5 +1,3 @@
-# dbconn.py
-
 # import the ORM 
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
@@ -14,7 +12,9 @@ dotenv_path = os.path.join(project_root, ".env")
 
 load_dotenv(dotenv_path=dotenv_path)
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASE_URL = os.getenv("DATABASE_URL")
+
+DATABASE_URL="postgresql+asyncpg://postgres:postgres@localhost:5432/urlshortnerdb"
 
 if DATABASE_URL is None:
     raise ValueError(

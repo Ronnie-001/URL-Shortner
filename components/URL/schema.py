@@ -13,4 +13,4 @@ class URLRead(BaseModel):
     use_count: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
