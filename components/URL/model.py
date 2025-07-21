@@ -12,4 +12,3 @@ class URL(Base):
     
     def __repr__(self) -> str:
         return f"ID(uid={self.uid!r}), short_url={self.short_url!r}, long_url={self.long_url!r}, created_at={self.created_at!r}, use_count={self.use_count!r}"
-
