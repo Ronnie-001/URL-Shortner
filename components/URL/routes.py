@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import RedirectResponse
-from pydantic import HttpUrl
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -50,12 +49,13 @@ async def shortenURL(url: URLCreate, db: AsyncSession = Depends(getDb)):
 
     return new_url
 
-
-@router.get("/api/v1/urls/{url_id}", response_class=RedirectResponse)
-async def getURL(url_id : int, db: AsyncSession = Depends(getDb)):
-    res = await db.execute(select(model.URL).where(model.URL.uid == url_id))
+@router.get("/api/v1/urls/{short_url}", response_class=RedirectResponse)
+async def getURL(short_url: str, db: AsyncSession = Depends(getDb)):
+    res = await db.execute(select(model.URL).where(model.URL.short_url == short_url))
     url = res.scalar_one_or_none()
-
+    
     if url:
+        url.use_count = url.use_count + 1  #type: ignore
+        await db.commit()
+        await db.refresh(url)
         return url.long_url
-
